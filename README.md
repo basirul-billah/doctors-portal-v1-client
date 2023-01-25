@@ -1,10 +1,10 @@
-## Doctors Portal
+# Doctors Portal
 
-# Features
+## Features
 * Making Appointment
 * Managing Users
 
-# Technologies
+## Technologies
 * React
 * Tailwind
 * DaisyUI
