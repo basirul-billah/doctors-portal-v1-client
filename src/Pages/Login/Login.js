@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
   const {
@@ -8,8 +9,13 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { signIn } = useContext(AuthContext);
   const handleLogin = (data) => {
     console.log(data);
+    signIn(data.email, data.password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
   };
   return (
     <div className="h-full flex justify-center items-center m-9">
@@ -27,7 +33,9 @@ const Login = () => {
               className="input input-bordered w-full"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm ml-1 mt-2">{errors.email?.message}</p>
+              <p className="text-red-500 text-sm ml-1 mt-2">
+                {errors.email?.message}
+              </p>
             )}
           </div>
 
@@ -48,7 +56,9 @@ const Login = () => {
               className="input input-bordered w-full"
             />
             {errors.password && (
-              <p className="text-red-500 text-sm ml-1 mt-2">{errors.password?.message}</p>
+              <p className="text-red-500 text-sm ml-1 mt-2">
+                {errors.password?.message}
+              </p>
             )}
             <label className="label">
               <span className="label-text text-sm">Forgot password?</span>
