@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-  const handleLogin = (data) => {
+const SignUp = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const handleSignUp = (data) => {
     console.log(data);
   };
   return (
     <div className="h-full flex justify-center items-center m-9">
       <div className="w-96 p-7 shadow-lg rounded-lg">
-        <h1 className="text-xl text-center my-6">Login</h1>
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <h1 className="text-xl text-center my-6">Sign Up!</h1>
+        <form onSubmit={handleSubmit(handleSignUp)}>
+          {/* ----------------- name ----------------- */}
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text text-base">Name</span>
+            </label>
+            <input
+              type="text"
+              {...register("name", { required: "Name is required!" })}
+              className="input input-bordered w-full"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm ml-1 mt-2">
+                {errors.name?.message}
+              </p>
+            )}
+          </div>
+
           {/* ----------------- email ----------------- */}
           <div className="form-control w-full">
             <label className="label">
@@ -27,7 +40,9 @@ const Login = () => {
               className="input input-bordered w-full"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm ml-1 mt-2">{errors.email?.message}</p>
+              <p className="text-red-500 text-sm ml-1 mt-2">
+                {errors.email?.message}
+              </p>
             )}
           </div>
 
@@ -48,25 +63,24 @@ const Login = () => {
               className="input input-bordered w-full"
             />
             {errors.password && (
-              <p className="text-red-500 text-sm ml-1 mt-2">{errors.password?.message}</p>
+              <p className="text-red-500 text-sm ml-1 mt-2">
+                {errors.password?.message}
+              </p>
             )}
-            <label className="label">
-              <span className="label-text text-sm">Forgot password?</span>
-            </label>
           </div>
           <input />
 
           {/* ----------------- input ------------------- */}
           <input
             type="submit"
-            value="login"
+            value="Create new account"
             className="btn btn-accent w-full text-white"
           />
         </form>
         <p className="text-sm mt-6 text-center">
-          New to Doctors Portal?{" "}
-          <Link to="/signup" className="text-primary">
-            Create new account.
+          Already have an account?{" "}
+          <Link to="/login" className="text-primary">
+            Log in to you account.
           </Link>
         </p>
         <div className="divider">OR</div>
@@ -81,4 +95,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
